@@ -4,9 +4,16 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MyMauiSamplesApp"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="preferenceSamplePageRoot"
     x:DataType="local:PreferenceSamplePage"
     BindingContext="{Reference preferenceSamplePageRoot}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="isStringNotNullOrWhiteSpaceConverter" />
+            <toolkit:VariableMultiValueConverter x:Key="variableMultiValueConverter" ConditionType="All" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Grid
         Padding="20"
         ColumnDefinitions="*"
@@ -23,11 +30,23 @@
         <Button
             Grid.Row="2"
             Clicked="SavePreferenceClicked"
-            Text="Save Preference" />
+            Text="Save Preference">
+            <Button.IsEnabled>
+                <MultiBinding Converter="{StaticResource variableMultiValueConverter}">
+                    <Binding
+                        Converter="{StaticResource isStringNotNullOrWhiteSpaceConverter}"
+                        Path="Text"
+                        Source="{Reference keyEntry}" />
+                    <Binding
+                        Converter="{StaticResource isStringNotNullOrWhiteSpaceConverter}"
+                        Path="Text"
+                        Source="{Reference valueEntry}" />
+                </MultiBinding>
+            </Button.IsEnabled>
+        </Button>
         <Label
             x:Name="savePathLabel"
-            Grid.Row="3"
-            Text="Preferences are saved in the application's local storage." />
+            Grid.Row="3" />
         <CollectionView
             x:Name="preferencesView"
             Grid.Row="5"

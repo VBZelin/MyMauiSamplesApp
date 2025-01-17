@@ -26,6 +26,31 @@ namespace MyMauiSamplesApp
         {
             Preferences.Default.Clear();
             SavedPreferences.Clear();
+            SetSavePathLabel();
+        }
+
+        private void SetSavePathLabel()
+        {
+            string text = "Preferences are saved in the application's local storage.";
+
+            if (DeviceInfo.Platform == DevicePlatform.iOS)
+            {
+                text = "Preferences are saved in UserDefaults.";
+            }
+            else if (DeviceInfo.Platform == DevicePlatform.Android)
+            {
+                text = "Preferences are saved in SharedPreferences.";
+            }
+            else if (DeviceInfo.Platform == DevicePlatform.MacCatalyst)
+            {
+                text = "Preferences are saved in UserDefaults (Mac).";
+            }
+            else if (DeviceInfo.Platform == DevicePlatform.WinUI)
+            {
+                text = "Preferences are saved in the local app data store.";
+            }
+
+            savePathLabel.Text = text;
         }
 
         private async void SavePreferenceClicked(object sender, EventArgs e)
