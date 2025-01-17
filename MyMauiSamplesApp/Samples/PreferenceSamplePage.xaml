@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyMauiSamplesApp.PreferenceSamplePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyMauiSamplesApp"
+    x:Name="preferenceSamplePageRoot"
+    x:DataType="local:PreferenceSamplePage"
+    BindingContext="{Reference preferenceSamplePageRoot}">
+    <Grid
+        Padding="20"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,Auto,Auto,Auto,*"
+        RowSpacing="20">
+        <Entry
+            x:Name="keyEntry"
+            Grid.Row="0"
+            Placeholder="Enter key" />
+        <Entry
+            x:Name="valueEntry"
+            Grid.Row="1"
+            Placeholder="Enter value" />
+        <Button
+            Grid.Row="2"
+            Clicked="SavePreferenceClicked"
+            Text="Save Preference" />
+        <Label
+            x:Name="savePathLabel"
+            Grid.Row="3"
+            Text="Preferences are saved in the application's local storage." />
+        <CollectionView
+            x:Name="preferencesView"
+            Grid.Row="5"
+            ItemsSource="{Binding SavedPreferences}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="20" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:PreferenceItem">
+                    <Border Stroke="Grey" StrokeShape="RoundRectangle 4">
+                        <Grid
+                            Padding="10"
+                            ColumnDefinitions="*,Auto"
+                            RowDefinitions="Auto,Auto">
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                HorizontalOptions="Start"
+                                Text="{Binding Key, StringFormat='KEY: {0}'}"
+                                VerticalTextAlignment="Center" />
+                            <Label
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                HorizontalOptions="Start"
+                                Text="{Binding Value, StringFormat='VALUE: {0}'}"
+                                VerticalTextAlignment="Center" />
+                            <Button
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                Grid.Column="1"
+                                Command="{Binding DeletePreferenceClickedCommand, Source={x:Reference preferenceSamplePageRoot}}"
+                                CommandParameter="{Binding Key}"
+                                HorizontalOptions="Center"
+                                Text="X"
+                                VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

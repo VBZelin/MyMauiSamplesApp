@@ -23,6 +23,13 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
+		RegisterRoutes();
+
 		return builder.Build();
+	}
+
+	public static void RegisterRoutes()
+	{
+		Routing.RegisterRoute(nameof(PreferenceSamplePage), typeof(PreferenceSamplePage));
 	}
 }
