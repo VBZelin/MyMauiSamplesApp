@@ -44,9 +44,7 @@
                 </MultiBinding>
             </Button.IsEnabled>
         </Button>
-        <Label
-            x:Name="savePathLabel"
-            Grid.Row="3" />
+        <Label x:Name="savePathLabel" Grid.Row="3" />
         <CollectionView
             x:Name="preferencesView"
             Grid.Row="5"
