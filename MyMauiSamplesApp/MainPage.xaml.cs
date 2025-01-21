@@ -11,5 +11,10 @@ public partial class MainPage : ContentPage
 	{
 		await Shell.Current.GoToAsync(nameof(PreferenceSamplePage));
 	}
+
+	private async void OnRadCollectionViewClicked(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(RadCollectionViewPage));
+	}
 }
 

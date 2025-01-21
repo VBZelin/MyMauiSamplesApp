@@ -24,6 +24,11 @@
                 HorizontalOptions="Fill"
                 SemanticProperties.Hint="Shows preference sample"
                 Text="Preference Sample" />
+            <Button
+                Clicked="OnRadCollectionViewClicked"
+                HorizontalOptions="Fill"
+                SemanticProperties.Hint="Shows radCollectionView sample"
+                Text="RadCollectionView Sample" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

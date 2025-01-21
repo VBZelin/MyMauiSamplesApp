@@ -31,5 +31,6 @@ public static class MauiProgram
 	public static void RegisterRoutes()
 	{
 		Routing.RegisterRoute(nameof(PreferenceSamplePage), typeof(PreferenceSamplePage));
+		Routing.RegisterRoute(nameof(RadCollectionViewPage), typeof(RadCollectionViewPage));
 	}
 }
