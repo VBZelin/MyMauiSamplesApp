@@ -1,7 +1,4 @@
 using System.Collections.ObjectModel;
-using Microsoft.Maui.Controls;
-using MyMauiSamplesApp;
-using Telerik.Maui.Controls;
 
 namespace MyMauiSamplesApp
 {
