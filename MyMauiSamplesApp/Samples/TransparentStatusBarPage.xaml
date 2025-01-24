@@ -19,8 +19,7 @@
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior
             ApplyOn="OnPageNavigatedTo"
-            BindingContext="{Binding BindingContext, Source={Reference transparentStatusBarPageRoot}}"
-            StatusBarColor="{Binding Color}"
+            StatusBarColor="Transparent"
             StatusBarStyle="{AppThemeBinding Light=DarkContent,
                                              Dark=LightContent}" />
     </ContentPage.Behaviors>

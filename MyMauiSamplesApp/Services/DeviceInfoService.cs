@@ -24,6 +24,7 @@ public class DeviceInfoService
 
     public static bool IsiOS => DeviceInfo.Current.Platform == DevicePlatform.iOS;
 
+    // Assume virtual devices are notched
     public static bool IsVirtual => DeviceInfo.Current.DeviceType switch
     {
         DeviceType.Physical => false,
