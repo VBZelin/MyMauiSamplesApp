@@ -10,7 +10,7 @@
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior
             ApplyOn="OnPageNavigatedTo"
-            StatusBarColor="Transparent"
+            StatusBarColor="{StaticResource Primary}"
             StatusBarStyle="{AppThemeBinding Light=DarkContent,
                                              Dark=LightContent}" />
     </ContentPage.Behaviors>

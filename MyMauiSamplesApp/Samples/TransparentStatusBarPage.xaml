@@ -37,7 +37,6 @@
                 <Button
                     Clicked="OnBackButtonClicked"
                     CornerRadius="4"
-                    HeightRequest="48"
                     HorizontalOptions="Start"
                     Text="Back"
                     VerticalOptions="Center" />
