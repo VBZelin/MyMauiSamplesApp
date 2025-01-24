@@ -56,7 +56,7 @@ public class DeviceInfoService
             return 0;
         }
 
-        return IsNotchDevice() || IsVirtual ? 40 * scaleFactor : 20 * scaleFactor;
+        return IsNotchDevice() || IsVirtual ? 20 * scaleFactor : 0;
     }
 
     public double GetBottomNotchHeight(double scaleFactor)
