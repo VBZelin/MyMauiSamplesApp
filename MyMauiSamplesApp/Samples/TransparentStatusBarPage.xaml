@@ -26,7 +26,7 @@
     </ContentPage.Behaviors>
     <Grid
         ColumnDefinitions="*"
-        IgnoreSafeArea="False"
+        IgnoreSafeArea="True"
         RowDefinitions="Auto,*,Auto">
         <Grid
             Grid.Row="0"
@@ -34,20 +34,15 @@
             HeightRequest="{Binding TopHeight}"
             RowDefinitions="*,Auto">
             <Grid Grid.Row="0" />
-            <Border
-                Grid.Row="1"
-                Stroke="Black"
-                StrokeThickness="1">
-                <Grid HeightRequest="64">
-                    <Button
-                        Clicked="OnBackButtonClicked"
-                        CornerRadius="4"
-                        HeightRequest="48"
-                        HorizontalOptions="Start"
-                        Text="Back"
-                        VerticalOptions="Center" />
-                </Grid>
-            </Border>
+            <Grid Grid.Row="1" HeightRequest="64">
+                <Button
+                    Clicked="OnBackButtonClicked"
+                    CornerRadius="4"
+                    HeightRequest="48"
+                    HorizontalOptions="Start"
+                    Text="Back"
+                    VerticalOptions="Center" />
+            </Grid>
         </Grid>
         <VerticalStackLayout Grid.Row="1" Padding="20">
             <Label HorizontalOptions="Center" Text="{Binding Hue, StringFormat='Hue = {0:F2}'}" />
@@ -62,12 +57,7 @@
             BackgroundColor="{Binding Color}"
             HeightRequest="{Binding BottomHeight}"
             RowDefinitions="Auto,*">
-            <Border
-                Grid.Row="1"
-                Stroke="Black"
-                StrokeThickness="1">
-                <Grid Grid.Row="0" HeightRequest="64" />
-            </Border>
+            <Grid Grid.Row="1" HeightRequest="64" />
             <Grid Grid.Row="1" />
         </Grid>
     </Grid>

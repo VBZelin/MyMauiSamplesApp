@@ -24,6 +24,13 @@ public class DeviceInfoService
 
     public static bool IsiOS => DeviceInfo.Current.Platform == DevicePlatform.iOS;
 
+    public static bool IsVirtual => DeviceInfo.Current.DeviceType switch
+    {
+        DeviceType.Physical => false,
+        DeviceType.Virtual => true,
+        _ => false
+    };
+
     public bool IsNotchDevice()
     {
         string deviceModel = DeviceInfo.Current.Model;
@@ -49,11 +56,16 @@ public class DeviceInfoService
             return 0;
         }
 
-        return IsNotchDevice() ? 40 * scaleFactor : 20 * scaleFactor;
+        return IsNotchDevice() || IsVirtual ? 40 * scaleFactor : 20 * scaleFactor;
     }
 
     public double GetBottomNotchHeight(double scaleFactor)
     {
-        return IsNotchDevice() ? 16 * scaleFactor : 0;
+        if (!IsiOS)
+        {
+            return 0;
+        }
+
+        return IsNotchDevice() || IsVirtual ? 16 * scaleFactor : 0;
     }
 }
