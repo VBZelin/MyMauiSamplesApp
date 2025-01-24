@@ -1,0 +1,74 @@
+<ContentPage
+    x:Class="MyMauiSamplesApp.TransparentStatusBarPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:local="clr-namespace:MyMauiSamplesApp"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="transparentStatusBarPageRoot"
+    ios:Page.UseSafeArea="False"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+    <ContentPage.BindingContext>
+        <local:TransparentStatusBarViewModel Color="{StaticResource Primary}" />
+    </ContentPage.BindingContext>
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior
+            ApplyOn="OnPageNavigatedTo"
+            BindingContext="{Binding BindingContext, Source={Reference transparentStatusBarPageRoot}}"
+            StatusBarColor="{Binding Color}"
+            StatusBarStyle="{AppThemeBinding Light=DarkContent,
+                                             Dark=LightContent}" />
+    </ContentPage.Behaviors>
+    <Grid
+        ColumnDefinitions="*"
+        IgnoreSafeArea="False"
+        RowDefinitions="Auto,*,Auto">
+        <Grid
+            Grid.Row="0"
+            BackgroundColor="{Binding Color}"
+            HeightRequest="{Binding TopHeight}"
+            RowDefinitions="*,Auto">
+            <Grid Grid.Row="0" />
+            <Border
+                Grid.Row="1"
+                Stroke="Black"
+                StrokeThickness="1">
+                <Grid HeightRequest="64">
+                    <Button
+                        Clicked="OnBackButtonClicked"
+                        CornerRadius="4"
+                        HeightRequest="48"
+                        HorizontalOptions="Start"
+                        Text="Back"
+                        VerticalOptions="Center" />
+                </Grid>
+            </Border>
+        </Grid>
+        <VerticalStackLayout Grid.Row="1" Padding="20">
+            <Label HorizontalOptions="Center" Text="{Binding Hue, StringFormat='Hue = {0:F2}'}" />
+            <Slider Margin="20,0,20,0" Value="{Binding Hue}" />
+            <Label HorizontalOptions="Center" Text="{Binding Saturation, StringFormat='Saturation = {0:F2}'}" />
+            <Slider Margin="20,0,20,0" Value="{Binding Saturation}" />
+            <Label HorizontalOptions="Center" Text="{Binding Luminosity, StringFormat='Luminosity = {0:F2}'}" />
+            <Slider Margin="20,0,20,0" Value="{Binding Luminosity}" />
+        </VerticalStackLayout>
+        <Grid
+            Grid.Row="2"
+            BackgroundColor="{Binding Color}"
+            HeightRequest="{Binding BottomHeight}"
+            RowDefinitions="Auto,*">
+            <Border
+                Grid.Row="1"
+                Stroke="Black"
+                StrokeThickness="1">
+                <Grid Grid.Row="0" HeightRequest="64" />
+            </Border>
+            <Grid Grid.Row="1" />
+        </Grid>
+    </Grid>
+</ContentPage>

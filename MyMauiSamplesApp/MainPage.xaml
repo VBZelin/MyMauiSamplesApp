@@ -2,7 +2,13 @@
 <ContentPage
     x:Class="MyMauiSamplesApp.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior ApplyOn="OnPageNavigatedTo" 
+            StatusBarColor="{StaticResource Primary}"
+            StatusBarStyle="{AppThemeBinding Light=DarkContent, Dark=LightContent}" />
+    </ContentPage.Behaviors>
     <ScrollView>
         <VerticalStackLayout Padding="30,0" Spacing="25">
             <Image
@@ -29,6 +35,11 @@
                 HorizontalOptions="Fill"
                 SemanticProperties.Hint="Shows radCollectionView sample"
                 Text="RadCollectionView Sample" />
+            <Button
+                Clicked="OnTransparentStatusBarClicked"
+                HorizontalOptions="Fill"
+                SemanticProperties.Hint="Shows transparentStatusBar sample"
+                Text="TransparentStatusBar Sample" />
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

@@ -16,5 +16,10 @@ public partial class MainPage : ContentPage
 	{
 		await Shell.Current.GoToAsync(nameof(RadCollectionViewPage));
 	}
+
+	private async void OnTransparentStatusBarClicked(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(TransparentStatusBarPage));
+	}
 }
 

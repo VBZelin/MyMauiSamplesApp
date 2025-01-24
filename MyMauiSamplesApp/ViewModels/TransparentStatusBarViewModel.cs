@@ -1,0 +1,89 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace MyMauiSamplesApp;
+
+public partial class TransparentStatusBarViewModel : ObservableObject
+{
+    private float _hue, _saturation, _luminosity;
+    private Color _color = Colors.Transparent;
+    private readonly DeviceInfoService _deviceInfoService;
+    private readonly double ContentHeight = 64;
+
+    public TransparentStatusBarViewModel()
+    {
+        _deviceInfoService = new DeviceInfoService();
+        UpdateNotchHeights();
+    }
+
+    public float Hue
+    {
+        get => _hue;
+        set
+        {
+            if (SetProperty(ref _hue, value))
+            {
+                UpdateColor();
+            }
+        }
+    }
+
+    public float Saturation
+    {
+        get => _saturation;
+        set
+        {
+            if (SetProperty(ref _saturation, value))
+            {
+                UpdateColor();
+            }
+        }
+    }
+
+    public float Luminosity
+    {
+        get => _luminosity;
+        set
+        {
+            if (SetProperty(ref _luminosity, value))
+            {
+                UpdateColor();
+            }
+        }
+    }
+
+    public Color Color
+    {
+        get => _color;
+        set
+        {
+            if (_color != value)
+            {
+                SetProperty(ref _color, value);
+                _hue = _color.GetHue();
+                _saturation = _color.GetSaturation();
+                _luminosity = _color.GetLuminosity();
+                OnPropertyChanged(nameof(Hue));
+                OnPropertyChanged(nameof(Saturation));
+                OnPropertyChanged(nameof(Luminosity));
+            }
+        }
+    }
+
+    [ObservableProperty]
+    private double topHeight = 64;
+
+    [ObservableProperty]
+    private double bottomHeight = 64;
+
+    private void UpdateColor()
+    {
+        Color = Color.FromHsla(_hue, _saturation, _luminosity);
+    }
+
+    private void UpdateNotchHeights()
+    {
+        double scaleFactor = DeviceDisplay.MainDisplayInfo.Density;
+        TopHeight = _deviceInfoService.GetTopNotchHeight(scaleFactor) + ContentHeight;
+        BottomHeight = _deviceInfoService.GetBottomNotchHeight(scaleFactor) + ContentHeight;
+    }
+}
