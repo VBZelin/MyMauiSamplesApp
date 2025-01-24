@@ -23,6 +23,7 @@ public class DeviceInfoService
     private readonly int assumeiPadAreNotchedFrom = 15;
 
     public static bool IsiOS => DeviceInfo.Current.Platform == DevicePlatform.iOS;
+    public static bool IsAndroid => DeviceInfo.Current.Platform == DevicePlatform.Android;
 
     // Assume virtual devices are notched
     public static bool IsVirtual => DeviceInfo.Current.DeviceType switch
@@ -52,21 +53,11 @@ public class DeviceInfoService
 
     public double GetTopNotchHeight(double scaleFactor)
     {
-        if (!IsiOS)
-        {
-            return 0;
-        }
-
-        return IsNotchDevice() || IsVirtual ? 20 * scaleFactor : 0;
+        return IsAndroid ? 20 : (IsiOS && (IsNotchDevice() || IsVirtual) ? 20 * scaleFactor : 0);
     }
 
     public double GetBottomNotchHeight(double scaleFactor)
     {
-        if (!IsiOS)
-        {
-            return 0;
-        }
-
-        return IsNotchDevice() || IsVirtual ? 16 * scaleFactor : 0;
+        return IsiOS ? (IsNotchDevice() || IsVirtual ? 16 * scaleFactor : 0) : 0;
     }
 }

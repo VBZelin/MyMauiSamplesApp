@@ -3,13 +3,18 @@
     x:Class="MyMauiSamplesApp.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False">
     <ContentPage.Behaviors>
-        <toolkit:StatusBarBehavior ApplyOn="OnPageNavigatedTo" 
-            StatusBarColor="{StaticResource Primary}"
-            StatusBarStyle="{AppThemeBinding Light=DarkContent, Dark=LightContent}" />
+        <toolkit:StatusBarBehavior
+            ApplyOn="OnPageNavigatedTo"
+            StatusBarColor="Transparent"
+            StatusBarStyle="{AppThemeBinding Light=DarkContent,
+                                             Dark=LightContent}" />
     </ContentPage.Behaviors>
-    <ScrollView>
+    <ScrollView Margin="20">
         <VerticalStackLayout Padding="30,0" Spacing="25">
             <Image
                 Aspect="AspectFit"
