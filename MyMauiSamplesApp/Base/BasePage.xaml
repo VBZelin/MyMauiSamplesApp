@@ -6,10 +6,15 @@
     xmlns:local="clr-namespace:MyMauiSamplesApp"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="basePageRoot"
-    ios:Page.UseSafeArea="{Binding UseFullScreen, Source={Reference basePageRoot}}"
+    ios:Page.UseSafeArea="{Binding UseFullScreen, Source={Reference basePageRoot}, Converter={StaticResource invertedBoolConverter}}"
     Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False"
     Shell.TabBarIsVisible="False">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsEnabled="False" IsVisible="False" />
     </Shell.BackButtonBehavior>
@@ -21,6 +26,6 @@
                                              Dark=LightContent}" />
     </ContentPage.Behaviors>
     <Grid x:Name="mainGrid">
-        <ContentView ControlTemplate="{Binding ContentTemplate, Source={Reference basePageRoot}}" />
+        <ContentView ControlTemplate="{Binding BodyTemplate, Source={Reference basePageRoot}}" />
     </Grid>
 </ContentPage>

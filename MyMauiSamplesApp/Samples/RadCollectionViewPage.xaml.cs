@@ -10,7 +10,7 @@ namespace MyMauiSamplesApp
         public int Id { get; set; }
     }
 
-    public partial class RadCollectionViewPage : ContentPage
+    public partial class RadCollectionViewPage : BasePage
     {
         public ObservableCollection<DataModel> Locations { get; set; } =
         [
@@ -84,6 +84,12 @@ namespace MyMauiSamplesApp
         public RadCollectionViewPage()
         {
             InitializeComponent();
+            BindingContext = this;
+        }
+
+        private async void OnBackButtonClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

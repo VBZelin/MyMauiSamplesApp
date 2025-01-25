@@ -26,6 +26,19 @@ public partial class BasePage : ContentPage
         }
     }
 
+    public static readonly BindableProperty StatusBarColorProperty =
+            BindableProperty.Create(
+                nameof(StatusBarColor),
+                typeof(Color),
+                typeof(BasePage),
+                Colors.Transparent);
+
+    public Color StatusBarColor
+    {
+        get => (Color)GetValue(StatusBarColorProperty);
+        set => SetValue(StatusBarColorProperty, value);
+    }
+
     public static readonly BindableProperty BodyTemplateProperty =
     BindableProperty.Create(
         nameof(BodyTemplate),

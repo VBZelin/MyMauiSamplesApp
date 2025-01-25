@@ -1,39 +1,55 @@
-<ContentPage
+<local:BasePage
     x:Class="MyMauiSamplesApp.RadCollectionViewPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MyMauiSamplesApp"
-    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    x:Name="radCollectionViewPageRoot"
+    xmlns:telerikCombo="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
     x:DataType="local:RadCollectionViewPage"
-    BindingContext="{Reference radCollectionViewPageRoot}">
-    <telerik:RadCollectionView
-        x:Name="collectionView"
-        DisplayMemberPath="City"
-        ItemsSource="{Binding Locations}">
-        <telerik:RadCollectionView.ItemTemplate>
-            <DataTemplate x:DataType="local:DataModel">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label
-                        Grid.Column="0"
-                        Text="{Binding Continent}"
-                        VerticalOptions="Center" />
-                    <Label
-                        Grid.Column="1"
-                        Text="{Binding Country}"
-                        VerticalOptions="Center" />
-                    <Label
-                        Grid.Column="2"
-                        Text="{Binding City}"
+    StatusBarColor="{StaticResource Primary}">
+    <local:BasePage.BodyTemplate>
+        <ControlTemplate>
+            <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
+                <Grid
+                    Grid.Row="0"
+                    BackgroundColor="{StaticResource Primary}"
+                    HeightRequest="64">
+                    <Button
+                        Margin="10"
+                        BackgroundColor="Transparent"
+                        Clicked="OnBackButtonClicked"
+                        HorizontalOptions="Start"
+                        Text="Back"
                         VerticalOptions="Center" />
                 </Grid>
-            </DataTemplate>
-        </telerik:RadCollectionView.ItemTemplate>
-    </telerik:RadCollectionView>
-</ContentPage>
+                <telerikCombo:RadCollectionView
+                    Grid.Row="1"
+                    DisplayMemberPath="City"
+                    ItemsSource="{Binding Locations}">
+                    <telerikCombo:RadCollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="local:DataModel">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label
+                                    Grid.Column="0"
+                                    Text="{Binding Continent}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding Country}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="2"
+                                    Text="{Binding City}"
+                                    VerticalOptions="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </telerikCombo:RadCollectionView.ItemTemplate>
+                </telerikCombo:RadCollectionView>
+            </Grid>
+        </ControlTemplate>
+    </local:BasePage.BodyTemplate>
+</local:BasePage>
