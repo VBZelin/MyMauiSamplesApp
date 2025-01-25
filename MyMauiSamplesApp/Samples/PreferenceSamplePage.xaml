@@ -63,12 +63,14 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 HorizontalOptions="Start"
+                                LineBreakMode="TailTruncation"
                                 Text="{Binding Key, StringFormat='KEY: {0}'}"
                                 VerticalTextAlignment="Center" />
                             <Label
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 HorizontalOptions="Start"
+                                LineBreakMode="TailTruncation"
                                 Text="{Binding Value, StringFormat='VALUE: {0}'}"
                                 VerticalTextAlignment="Center" />
                             <Button

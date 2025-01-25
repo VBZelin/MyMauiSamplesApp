@@ -1,15 +1,16 @@
 using System.Collections.ObjectModel;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Storage;
-using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace MyMauiSamplesApp
 {
-    public class PreferenceItem(string key, string value)
+    public partial class PreferenceItem(string key, string value) : ObservableObject
     {
-        public string Key { get; set; } = key;
-        public string Value { get; set; } = value;
+        [ObservableProperty]
+        private string _key = key;
+
+        [ObservableProperty]
+        private string _value = value;
     }
 
     public partial class PreferenceSamplePage : ContentPage
@@ -60,10 +61,16 @@ namespace MyMauiSamplesApp
             if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
             {
                 Preferences.Default.Set(key, value);
-                SavedPreferences.Add(new PreferenceItem(key, value));
-                keyEntry.Text = string.Empty;
-                valueEntry.Text = string.Empty;
-                await DisplayAlert("Saved", "Your preference has been saved.", "OK");
+
+                var existingItem = SavedPreferences.FirstOrDefault(p => p.Key == key);
+                if (existingItem is not null)
+                {
+                    existingItem.Value = value;
+                }
+                else
+                {
+                    SavedPreferences.Add(new PreferenceItem(key, value));
+                }
             }
             else
             {

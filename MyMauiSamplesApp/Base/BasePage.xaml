@@ -1,0 +1,26 @@
+<ContentPage
+    x:Class="MyMauiSamplesApp.BasePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+    xmlns:local="clr-namespace:MyMauiSamplesApp"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="basePageRoot"
+    ios:Page.UseSafeArea="{Binding UseFullScreen, Source={Reference basePageRoot}}"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="False">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False" />
+    </Shell.BackButtonBehavior>
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior
+            ApplyOn="OnPageNavigatedTo"
+            StatusBarColor="{Binding StatusBarColor, Source={Reference basePageRoot}}"
+            StatusBarStyle="{AppThemeBinding Light=DarkContent,
+                                             Dark=LightContent}" />
+    </ContentPage.Behaviors>
+    <Grid x:Name="mainGrid">
+        <ContentView ControlTemplate="{Binding ContentTemplate, Source={Reference basePageRoot}}" />
+    </Grid>
+</ContentPage>
