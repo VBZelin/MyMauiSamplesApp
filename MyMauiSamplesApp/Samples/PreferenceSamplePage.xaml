@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<local:BasePage
     x:Class="MyMauiSamplesApp.PreferenceSamplePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -7,28 +7,42 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="preferenceSamplePageRoot"
     x:DataType="local:PreferenceSamplePage"
-    BindingContext="{Reference preferenceSamplePageRoot}">
-    <ContentPage.Resources>
+    StatusBarColor="{StaticResource Primary}">
+    <local:BasePage.Resources>
         <ResourceDictionary>
             <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="isStringNotNullOrWhiteSpaceConverter" />
             <toolkit:VariableMultiValueConverter x:Key="variableMultiValueConverter" ConditionType="All" />
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </local:BasePage.Resources>
     <Grid
-        Padding="20"
         ColumnDefinitions="*"
-        RowDefinitions="Auto,Auto,Auto,Auto,*"
+        RowDefinitions="Auto,Auto,Auto,Auto,Auto,*"
         RowSpacing="20">
+        <Grid
+            Grid.Row="0"
+            BackgroundColor="BlueViolet"
+            HeightRequest="64">
+            <Button
+                Margin="10"
+                BackgroundColor="Transparent"
+                Clicked="OnBackButtonClicked"
+                HorizontalOptions="Start"
+                Text="Back"
+                VerticalOptions="Center" />
+        </Grid>
         <Entry
             x:Name="keyEntry"
-            Grid.Row="0"
+            Grid.Row="1"
+            Margin="10"
             Placeholder="Enter key" />
         <Entry
             x:Name="valueEntry"
-            Grid.Row="1"
+            Grid.Row="2"
+            Margin="10"
             Placeholder="Enter value" />
         <Button
-            Grid.Row="2"
+            Grid.Row="3"
+            Margin="10"
             Clicked="SavePreferenceClicked"
             Text="Save Preference">
             <Button.IsEnabled>
@@ -44,10 +58,13 @@
                 </MultiBinding>
             </Button.IsEnabled>
         </Button>
-        <Label x:Name="savePathLabel" Grid.Row="3" />
+        <Label
+            x:Name="savePathLabel"
+            Grid.Row="4"
+            Margin="10" />
         <CollectionView
-            x:Name="preferencesView"
             Grid.Row="5"
+            Margin="10"
             ItemsSource="{Binding SavedPreferences}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout ItemSpacing="20" Orientation="Vertical" />
@@ -88,4 +105,4 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
-</ContentPage>
+</local:BasePage>

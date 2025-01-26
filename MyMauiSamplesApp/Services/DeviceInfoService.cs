@@ -51,13 +51,25 @@ public class DeviceInfoService
         return false;
     }
 
-    public double GetTopNotchHeight(double scaleFactor)
+    public double GetTopNotchHeight()
     {
-        return IsAndroid ? 20 : (IsiOS && (IsNotchDevice() || IsVirtual) ? 20 * scaleFactor : 0);
+        if (IsAndroid || (IsiOS && (IsNotchDevice() || IsVirtual)))
+            return DeviceInfoService.GetSafeAreaInsets().Top;
+
+        return 0;
     }
 
-    public double GetBottomNotchHeight(double scaleFactor)
+    public double GetBottomNotchHeight()
     {
-        return IsiOS ? (IsNotchDevice() || IsVirtual ? 16 * scaleFactor : 0) : 0;
+        if (IsAndroid || (IsiOS && (IsNotchDevice() || IsVirtual)))
+            return DeviceInfoService.GetSafeAreaInsets().Bottom;
+
+        return 0;
+    }
+
+    public static Thickness GetSafeAreaInsets()
+    {
+        var safeAreaInsets = SafeAreaHelper.GetSafeAreaInsets();
+        return safeAreaInsets;
     }
 }

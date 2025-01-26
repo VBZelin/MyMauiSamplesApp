@@ -22,7 +22,6 @@ public partial class BasePage : ContentPage
         if (bindable is BasePage page && newValue is bool isFullScreen)
         {
             page.UpdateAndroidWindowFlags(isFullScreen);
-            page.UpdateIgnoreSafeArea(isFullScreen);
         }
     }
 
@@ -39,19 +38,6 @@ public partial class BasePage : ContentPage
         set => SetValue(StatusBarColorProperty, value);
     }
 
-    public static readonly BindableProperty BodyTemplateProperty =
-    BindableProperty.Create(
-        nameof(BodyTemplate),
-        typeof(ControlTemplate),
-        typeof(BasePage),
-        defaultValue: null);
-
-    public ControlTemplate BodyTemplate
-    {
-        get => (ControlTemplate)GetValue(BodyTemplateProperty);
-        set => SetValue(BodyTemplateProperty, value);
-    }
-
     public BasePage()
     {
         InitializeComponent();
@@ -63,7 +49,6 @@ public partial class BasePage : ContentPage
         if (UseFullScreen)
         {
             UpdateAndroidWindowFlags(true);
-            UpdateIgnoreSafeArea(true);
         }
     }
 
@@ -73,7 +58,6 @@ public partial class BasePage : ContentPage
         if (UseFullScreen)
         {
             UpdateAndroidWindowFlags(false);
-            UpdateIgnoreSafeArea(false);
         }
     }
 
@@ -94,13 +78,5 @@ public partial class BasePage : ContentPage
             window.AddFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
         }
 #endif
-    }
-
-    public void UpdateIgnoreSafeArea(bool ignoreSafeArea)
-    {
-        if (mainGrid is not null)
-        {
-            mainGrid.IgnoreSafeArea = ignoreSafeArea;
-        }
     }
 }

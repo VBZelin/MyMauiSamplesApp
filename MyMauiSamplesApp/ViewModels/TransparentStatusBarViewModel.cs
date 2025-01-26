@@ -82,8 +82,7 @@ public partial class TransparentStatusBarViewModel : ObservableObject
 
     private void UpdateNotchHeights()
     {
-        double scaleFactor = DeviceDisplay.MainDisplayInfo.Density;
-        TopHeight = _deviceInfoService.GetTopNotchHeight(scaleFactor) + ContentHeight;
-        BottomHeight = _deviceInfoService.GetBottomNotchHeight(scaleFactor) + ContentHeight;
+        TopHeight = _deviceInfoService.GetTopNotchHeight() + ContentHeight;
+        BottomHeight = _deviceInfoService.GetBottomNotchHeight() + ContentHeight;
     }
 }

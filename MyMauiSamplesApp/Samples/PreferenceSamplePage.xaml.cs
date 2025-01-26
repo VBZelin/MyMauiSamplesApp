@@ -13,13 +13,14 @@ namespace MyMauiSamplesApp
         private string _value = value;
     }
 
-    public partial class PreferenceSamplePage : ContentPage
+    public partial class PreferenceSamplePage : BasePage
     {
         public ObservableCollection<PreferenceItem> SavedPreferences { get; set; } = [];
 
         public PreferenceSamplePage()
         {
             InitializeComponent();
+            BindingContext = this;
             ClearPreferences();
         }
 
@@ -56,25 +57,24 @@ namespace MyMauiSamplesApp
 
         private async void SavePreferenceClicked(object sender, EventArgs e)
         {
-            var key = keyEntry.Text;
-            var value = valueEntry.Text;
-            if (!string.IsNullOrEmpty(key) && !string.IsNullOrEmpty(value))
-            {
-                Preferences.Default.Set(key, value);
+            var key = keyEntry.Text.Trim();
+            var value = valueEntry.Text.Trim();
 
-                var existingItem = SavedPreferences.FirstOrDefault(p => p.Key == key);
-                if (existingItem is not null)
-                {
-                    existingItem.Value = value;
-                }
-                else
-                {
-                    SavedPreferences.Add(new PreferenceItem(key, value));
-                }
+            if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(value))
+            {
+                await DisplayAlert("Error", "Key and value cannot be empty.", "OK");
+                return;
+            }
+
+            Preferences.Default.Set(key, value);
+
+            if (SavedPreferences.FirstOrDefault(p => p.Key == key) is { } existingItem)
+            {
+                existingItem.Value = value;
             }
             else
             {
-                await DisplayAlert("Error", "Key or value cannot be empty.", "OK");
+                SavedPreferences.Add(new PreferenceItem(key, value));
             }
         }
 
@@ -91,6 +91,11 @@ namespace MyMauiSamplesApp
                 }
                 await DisplayAlert("Deleted", $"Preference for {key} has been deleted.", "OK");
             }
+        }
+
+        private async void OnBackButtonClicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

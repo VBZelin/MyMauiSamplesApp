@@ -25,7 +25,9 @@
             StatusBarStyle="{AppThemeBinding Light=DarkContent,
                                              Dark=LightContent}" />
     </ContentPage.Behaviors>
-    <Grid x:Name="mainGrid">
-        <ContentView ControlTemplate="{Binding BodyTemplate, Source={Reference basePageRoot}}" />
-    </Grid>
+    <ContentPage.ControlTemplate>
+        <ControlTemplate>
+            <ContentPresenter />
+        </ControlTemplate>
+    </ContentPage.ControlTemplate>
 </ContentPage>

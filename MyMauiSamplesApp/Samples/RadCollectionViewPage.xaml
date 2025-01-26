@@ -6,50 +6,50 @@
     xmlns:telerikCombo="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
     x:DataType="local:RadCollectionViewPage"
     StatusBarColor="{StaticResource Primary}">
-    <local:BasePage.BodyTemplate>
-        <ControlTemplate>
-            <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
-                <Grid
-                    Grid.Row="0"
-                    BackgroundColor="{StaticResource Primary}"
-                    HeightRequest="64">
-                    <Button
-                        Margin="10"
-                        BackgroundColor="Transparent"
-                        Clicked="OnBackButtonClicked"
-                        HorizontalOptions="Start"
-                        Text="Back"
-                        VerticalOptions="Center" />
-                </Grid>
-                <telerikCombo:RadCollectionView
-                    Grid.Row="1"
-                    DisplayMemberPath="City"
-                    ItemsSource="{Binding Locations}">
-                    <telerikCombo:RadCollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="local:DataModel">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Label
-                                    Grid.Column="0"
-                                    Text="{Binding Continent}"
-                                    VerticalOptions="Center" />
-                                <Label
-                                    Grid.Column="1"
-                                    Text="{Binding Country}"
-                                    VerticalOptions="Center" />
-                                <Label
-                                    Grid.Column="2"
-                                    Text="{Binding City}"
-                                    VerticalOptions="Center" />
-                            </Grid>
-                        </DataTemplate>
-                    </telerikCombo:RadCollectionView.ItemTemplate>
-                </telerikCombo:RadCollectionView>
-            </Grid>
-        </ControlTemplate>
-    </local:BasePage.BodyTemplate>
+    <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
+        <Grid
+            Grid.Row="0"
+            BackgroundColor="BlueViolet"
+            HeightRequest="64">
+            <Button
+                Margin="10"
+                BackgroundColor="Transparent"
+                Clicked="OnBackButtonClicked"
+                HorizontalOptions="Start"
+                Text="Back"
+                VerticalOptions="Center" />
+        </Grid>
+        <telerikCombo:RadCollectionView
+            Grid.Row="1"
+            Padding="10"
+            DisplayMemberPath="City"
+            ItemsSource="{Binding Locations}">
+            <telerikCombo:RadCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:DataModel">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Column="0"
+                            HorizontalOptions="Center"
+                            Text="{Binding Continent}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Column="1"
+                            HorizontalOptions="Center"
+                            Text="{Binding Country}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Column="2"
+                            HorizontalOptions="Center"
+                            Text="{Binding City}"
+                            VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </telerikCombo:RadCollectionView.ItemTemplate>
+        </telerikCombo:RadCollectionView>
+    </Grid>
 </local:BasePage>
