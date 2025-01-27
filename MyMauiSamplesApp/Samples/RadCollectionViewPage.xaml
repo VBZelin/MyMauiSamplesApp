@@ -5,7 +5,7 @@
     xmlns:local="clr-namespace:MyMauiSamplesApp"
     xmlns:telerikCombo="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
     x:DataType="local:RadCollectionViewPage"
-    StatusBarColor="{StaticResource Primary}">
+    StatusBarColor="{StaticResource Secondary}">
     <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
         <Grid
             Grid.Row="0"

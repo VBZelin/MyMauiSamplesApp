@@ -7,7 +7,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     x:Name="preferenceSamplePageRoot"
     x:DataType="local:PreferenceSamplePage"
-    StatusBarColor="{StaticResource Primary}">
+    StatusBarColor="{StaticResource Secondary}">
     <local:BasePage.Resources>
         <ResourceDictionary>
             <toolkit:IsStringNotNullOrWhiteSpaceConverter x:Key="isStringNotNullOrWhiteSpaceConverter" />
