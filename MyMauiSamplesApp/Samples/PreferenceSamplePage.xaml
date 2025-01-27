@@ -17,7 +17,7 @@
     <Grid
         ColumnDefinitions="*"
         RowDefinitions="Auto,Auto,Auto,Auto,Auto,*"
-        RowSpacing="20">
+        RowSpacing="10">
         <Grid
             Grid.Row="0"
             BackgroundColor="BlueViolet"
