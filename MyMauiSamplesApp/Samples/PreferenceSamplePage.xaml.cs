@@ -76,6 +76,10 @@ namespace MyMauiSamplesApp
             {
                 SavedPreferences.Add(new PreferenceItem(key, value));
             }
+
+            keyEntry.Text = string.Empty;
+            valueEntry.Text = string.Empty;
+            await DisplayAlert("Saved", "Your preference has been saved.", "OK");
         }
 
         [RelayCommand]
