@@ -1,0 +1,18 @@
+<local:BasePage
+    x:Class="MyMauiSamplesApp.SideDrawerPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyMauiSamplesApp"
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    UseFullScreen="True">
+    <Grid IgnoreSafeArea="True">
+        <local:BottomSheet x:Name="bottomSheet">
+            <Grid BackgroundColor="White" />
+        </local:BottomSheet>
+        <Button
+            Clicked="OnShowBottomSheetClicked"
+            HorizontalOptions="Center"
+            Text="Show BottomSheet"
+            VerticalOptions="Center" />
+    </Grid>
+</local:BasePage>

@@ -36,6 +36,11 @@
                 HorizontalOptions="Fill"
                 SemanticProperties.Hint="Shows transparentStatusBar sample"
                 Text="TransparentStatusBar Sample" />
+            <Button
+                Clicked="OnSideDrawerClicked"
+                HorizontalOptions="Fill"
+                SemanticProperties.Hint="Shows sideDrawer sample"
+                Text="SideDrawer Sample" />
         </VerticalStackLayout>
     </ScrollView>
 </local:BasePage>

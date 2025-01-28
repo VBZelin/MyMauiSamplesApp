@@ -21,5 +21,10 @@ public partial class MainPage : BasePage
 	{
 		await Shell.Current.GoToAsync(nameof(TransparentStatusBarPage));
 	}
+
+	private async void OnSideDrawerClicked(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(SideDrawerPage));
+	}
 }
 
