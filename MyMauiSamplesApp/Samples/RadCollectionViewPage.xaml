@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MyMauiSamplesApp"
-    xmlns:telerikCombo="clr-namespace:Telerik.Maui.Controls;assembly=Telerik.Maui.Controls"
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
     x:DataType="local:RadCollectionViewPage"
     StatusBarColor="{StaticResource Secondary}">
     <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
@@ -19,12 +19,13 @@
                 Text="Back"
                 VerticalOptions="Center" />
         </Grid>
-        <telerikCombo:RadCollectionView
+        <telerik:RadCollectionView
+            x:Name="radCollectionView"
             Grid.Row="1"
             Padding="10"
             DisplayMemberPath="City"
             ItemsSource="{Binding Locations}">
-            <telerikCombo:RadCollectionView.ItemTemplate>
+            <telerik:RadCollectionView.ItemTemplate>
                 <DataTemplate x:DataType="local:DataModel">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -49,7 +50,7 @@
                             VerticalOptions="Center" />
                     </Grid>
                 </DataTemplate>
-            </telerikCombo:RadCollectionView.ItemTemplate>
-        </telerikCombo:RadCollectionView>
+            </telerik:RadCollectionView.ItemTemplate>
+        </telerik:RadCollectionView>
     </Grid>
 </local:BasePage>
