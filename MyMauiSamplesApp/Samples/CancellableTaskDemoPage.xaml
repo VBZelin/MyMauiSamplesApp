@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyMauiSamplesApp.CancellableTaskDemoPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyMauiSamplesApp"
+    Title="CancellableTaskDemoPage">
+    <VerticalStackLayout Padding="20" Spacing="10">
+        <Label
+            FontSize="24"
+            HorizontalOptions="Center"
+            Text="Cancellable Task Demo" />
+        <Button Clicked="OnStartTaskClicked" Text="Start Task" />
+        <Button
+            x:Name="CancelButton"
+            Clicked="OnCancelTaskClicked"
+            IsEnabled="False"
+            Text="Cancel Task" />
+        <Label
+            x:Name="StatusLabel"
+            FontSize="18"
+            Text="Task status: Not started" />
+    </VerticalStackLayout>
+</ContentPage>

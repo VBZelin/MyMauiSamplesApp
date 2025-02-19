@@ -67,4 +67,10 @@
 		<PackageReference Include="Telerik.UI.for.Maui" Version="10.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Samples\CancellableTaskDemoPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

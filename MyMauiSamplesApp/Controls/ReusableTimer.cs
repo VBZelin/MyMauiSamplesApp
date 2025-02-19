@@ -1,52 +1,76 @@
-﻿namespace MyMauiSamplesApp
+﻿using Timer = System.Timers.Timer;
+
+namespace MyMauiSamplesApp
 {
     public class ReusableTimer : IDisposable
     {
-        private Timer? _timer;
-        private TimeSpan _interval;
+        private readonly Timer _timer;
         private readonly Func<Task> _callback;
-        private bool _isRunning;
-        private readonly object _lock = new();
+        private bool _callbackRunning = false;
+        private bool _disposed = false;
 
-        public ReusableTimer(TimeSpan interval, Func<Task> callback)
+        private bool AutoReset => _timer.AutoReset;
+
+        public bool Enabled
         {
-            _interval = interval;
-            _callback = callback ?? throw new ArgumentNullException(nameof(callback));
+            get => _timer.Enabled;
+            set
+            {
+                if (value)
+                {
+                    _timer.Enabled = true;
+                    Start();
+                }
+                else
+                {
+                    _timer.Enabled = false;
+                    Stop();
+                }
+            }
         }
+
+        public ReusableTimer(TimeSpan interval, Func<Task> callback, bool autoReset = true)
+        {
+            _callback = callback ?? throw new ArgumentNullException(nameof(callback));
+            _timer = new Timer(interval.TotalMilliseconds)
+            {
+                AutoReset = autoReset
+            };
+            _timer.Elapsed += async (sender, e) => await ExecuteCallbackAsync();
+        }
+
+        ~ReusableTimer() => Dispose(false);
 
         public void Start()
         {
-            lock (_lock)
+            if (!Enabled)
             {
-                if (_isRunning)
-                    return;
-
-                _timer = new Timer(async _ => await ExecuteCallbackAsync(), null, _interval, _interval);
-                _isRunning = true;
+                _timer.Start();
             }
         }
 
         public void Stop()
         {
-            lock (_lock)
+            if (Enabled)
             {
-                _timer?.Change(Timeout.Infinite, Timeout.Infinite);
-                _isRunning = false;
+                _timer.Stop();
             }
         }
 
         public void Reset(TimeSpan newInterval)
         {
-            lock (_lock)
-            {
-                _interval = newInterval;
-                Stop();
-                Start();
-            }
+            Stop();
+            _timer.Interval = newInterval.TotalMilliseconds;
+            Start();
         }
 
         private async Task ExecuteCallbackAsync()
         {
+            if (_callbackRunning) return;
+            _callbackRunning = true;
+
+            _timer.Stop();
+
             try
             {
                 await _callback.Invoke();
@@ -55,15 +79,30 @@
             {
                 Console.WriteLine($"Timer callback exception: {ex.Message}");
             }
+            finally
+            {
+                _callbackRunning = false;
+                if (AutoReset) _timer.Start();
+            }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed) return;
+
+            if (disposing)
+            {
+                Stop();
+                _timer.Dispose();
+            }
+
+            _disposed = true;
         }
 
         public void Dispose()
         {
-            lock (_lock)
-            {
-                _timer?.Dispose();
-                _isRunning = false;
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
