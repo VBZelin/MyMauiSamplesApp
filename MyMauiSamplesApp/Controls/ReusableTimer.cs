@@ -23,15 +23,9 @@ namespace MyMauiSamplesApp
 
         ~ReusableTimer() => Dispose(false);
 
-        public void Start()
-        {
-            _timer.Start();
-        }
+        public void Start() => _timer.Start();
 
-        public void Stop()
-        {
-            _timer.Stop();
-        }
+        public void Stop() => _timer.Stop();
 
         public void Reset(TimeSpan newInterval)
         {
