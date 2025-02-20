@@ -12,8 +12,6 @@
 
         public CancellableTask() { }
 
-        ~CancellableTask() => Dispose(disposing: false);
-
         public void Reset()
         {
             Cancel();

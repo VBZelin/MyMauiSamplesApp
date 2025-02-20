@@ -20,10 +20,8 @@ public partial class TransparentStatusBarViewModel : ObservableObject
         get => _hue;
         set
         {
-            if (SetProperty(ref _hue, value))
-            {
-                UpdateColor();
-            }
+            if (_hue != value)
+                Color = Color.FromHsla(value, _saturation, _luminosity);
         }
     }
 
@@ -32,10 +30,8 @@ public partial class TransparentStatusBarViewModel : ObservableObject
         get => _saturation;
         set
         {
-            if (SetProperty(ref _saturation, value))
-            {
-                UpdateColor();
-            }
+            if (_saturation != value)
+                Color = Color.FromHsla(_hue, value, _luminosity);
         }
     }
 
@@ -44,10 +40,8 @@ public partial class TransparentStatusBarViewModel : ObservableObject
         get => _luminosity;
         set
         {
-            if (SetProperty(ref _luminosity, value))
-            {
-                UpdateColor();
-            }
+            if (_luminosity != value)
+                Color = Color.FromHsla(_hue, _saturation, value);
         }
     }
 
@@ -58,13 +52,15 @@ public partial class TransparentStatusBarViewModel : ObservableObject
         {
             if (_color != value)
             {
-                SetProperty(ref _color, value);
+                _color = value;
                 _hue = _color.GetHue();
                 _saturation = _color.GetSaturation();
                 _luminosity = _color.GetLuminosity();
+
                 OnPropertyChanged(nameof(Hue));
                 OnPropertyChanged(nameof(Saturation));
                 OnPropertyChanged(nameof(Luminosity));
+                OnPropertyChanged(); // reports this property
             }
         }
     }
@@ -74,11 +70,6 @@ public partial class TransparentStatusBarViewModel : ObservableObject
 
     [ObservableProperty]
     private double bottomHeight = 64;
-
-    private void UpdateColor()
-    {
-        Color = Color.FromHsla(_hue, _saturation, _luminosity);
-    }
 
     private void UpdateNotchHeights()
     {

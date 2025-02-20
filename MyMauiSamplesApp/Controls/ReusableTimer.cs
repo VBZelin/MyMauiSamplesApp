@@ -18,10 +18,8 @@ namespace MyMauiSamplesApp
             {
                 AutoReset = autoReset
             };
-            _timer.Elapsed += async (sender, e) => await ExecuteCallbackAsync();
+            _timer.Elapsed += EventHandler;
         }
-
-        ~ReusableTimer() => Dispose(false);
 
         public void Start() => _timer.Start();
 
@@ -32,6 +30,11 @@ namespace MyMauiSamplesApp
             Stop();
             _timer.Interval = newInterval.TotalMilliseconds;
             Start();
+        }
+
+        private async void EventHandler(object? sender, EventArgs e)
+        {
+            await ExecuteCallbackAsync();
         }
 
         private async Task ExecuteCallbackAsync()
@@ -63,6 +66,7 @@ namespace MyMauiSamplesApp
             if (disposing)
             {
                 Stop();
+                _timer.Elapsed -= EventHandler;
                 _timer.Close();
             }
 
