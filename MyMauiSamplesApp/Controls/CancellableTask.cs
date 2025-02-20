@@ -10,10 +10,7 @@
 
         private bool _disposed;
 
-        public CancellableTask()
-        {
-            Reset();
-        }
+        public CancellableTask() { }
 
         ~CancellableTask() => Dispose(disposing: false);
 

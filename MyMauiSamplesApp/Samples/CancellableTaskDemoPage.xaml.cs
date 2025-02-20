@@ -12,8 +12,8 @@ public partial class CancellableTaskDemoPage : BasePage
 
     private async void OnStartTaskClicked(object sender, EventArgs e)
     {
-        StatusLabel.Text = "Task running...";
-        CancelButton.IsEnabled = true;
+        statusLabel.Text = "Task running...";
+        cancelButton.IsEnabled = true;
 
         try
         {
@@ -21,20 +21,20 @@ public partial class CancellableTaskDemoPage : BasePage
             {
                 for (int i = 0; i < 10; i++)
                 {
-                    if (token.IsCancellationRequested) return;
+                    if (_cancellableTask.IsCancelled) return;
                     await Task.Delay(1000, token);
-                    StatusLabel.Text = $"Task progress: {i + 1}/10";
+                    statusLabel.Text = $"Task progress: {i + 1}/10";
                 }
-                StatusLabel.Text = "Task completed.";
+                statusLabel.Text = "Task completed.";
             });
         }
         catch (OperationCanceledException)
         {
-            StatusLabel.Text = "Task cancelled.";
+            statusLabel.Text = "Task cancelled.";
         }
         finally
         {
-            CancelButton.IsEnabled = false;
+            cancelButton.IsEnabled = false;
         }
     }
 
@@ -45,8 +45,8 @@ public partial class CancellableTaskDemoPage : BasePage
 
     private void OnTaskCancelled()
     {
-        StatusLabel.Text = "Task cancelled.";
-        CancelButton.IsEnabled = false;
+        statusLabel.Text = "Task cancelled.";
+        cancelButton.IsEnabled = false;
     }
 
     private async void OnBackButtonClicked(object sender, EventArgs e)

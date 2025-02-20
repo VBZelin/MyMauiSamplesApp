@@ -45,7 +45,7 @@
                 Clicked="OnCancellableTaskDemoClicked"
                 HorizontalOptions="Fill"
                 SemanticProperties.Hint="Shows cancellableTask sample"
-                Text="SideDrawer Sample" />
+                Text="CancellableTask Sample" />
         </VerticalStackLayout>
     </ScrollView>
 </local:BasePage>
