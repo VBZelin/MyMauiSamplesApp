@@ -26,5 +26,10 @@ public partial class MainPage : BasePage
 	{
 		await Shell.Current.GoToAsync(nameof(SideDrawerPage));
 	}
+
+	private async void OnCancellableTaskDemoClicked(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(CancellableTaskDemoPage));
+	}
 }
 

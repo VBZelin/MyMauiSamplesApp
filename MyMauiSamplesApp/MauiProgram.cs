@@ -51,5 +51,6 @@ public static class MauiProgram
 		Routing.RegisterRoute(nameof(RadCollectionViewPage), typeof(RadCollectionViewPage));
 		Routing.RegisterRoute(nameof(TransparentStatusBarPage), typeof(TransparentStatusBarPage));
 		Routing.RegisterRoute(nameof(SideDrawerPage), typeof(SideDrawerPage));
+		Routing.RegisterRoute(nameof(CancellableTaskDemoPage), typeof(CancellableTaskDemoPage));
 	}
 }

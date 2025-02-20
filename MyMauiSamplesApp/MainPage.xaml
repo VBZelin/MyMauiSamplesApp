@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:MyMauiSamplesApp"
     StatusBarColor="{StaticResource Primary}">
     <ScrollView Margin="20">
-        <VerticalStackLayout Padding="30,0" Spacing="25">
+        <VerticalStackLayout Padding="30,0" Spacing="10">
             <Image
                 Aspect="AspectFit"
                 HeightRequest="185"
@@ -40,6 +40,11 @@
                 Clicked="OnSideDrawerClicked"
                 HorizontalOptions="Fill"
                 SemanticProperties.Hint="Shows sideDrawer sample"
+                Text="SideDrawer Sample" />
+            <Button
+                Clicked="OnCancellableTaskDemoClicked"
+                HorizontalOptions="Fill"
+                SemanticProperties.Hint="Shows cancellableTask sample"
                 Text="SideDrawer Sample" />
         </VerticalStackLayout>
     </ScrollView>

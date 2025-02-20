@@ -1,6 +1,6 @@
 namespace MyMauiSamplesApp;
 
-public partial class CancellableTaskDemoPage : ContentPage
+public partial class CancellableTaskDemoPage : BasePage
 {
     private readonly CancellableTask _cancellableTask = new();
 
@@ -47,5 +47,12 @@ public partial class CancellableTaskDemoPage : ContentPage
     {
         StatusLabel.Text = "Task cancelled.";
         CancelButton.IsEnabled = false;
+    }
+
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        _cancellableTask.Cancel();
+        _cancellableTask.Dispose();
+        await Shell.Current.GoToAsync("..");
     }
 }
