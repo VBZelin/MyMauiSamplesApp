@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage
+    x:Class="MyMauiSamplesApp.CancellableTaskSamplePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyMauiSamplesApp"
+    StatusBarColor="{StaticResource Primary}">
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*"
+        RowSpacing="10">
+        <Grid
+            Grid.Row="0"
+            BackgroundColor="{StaticResource Primary}"
+            HeightRequest="64">
+            <Button
+                Margin="10"
+                BackgroundColor="Transparent"
+                Clicked="OnBackButtonClicked"
+                HorizontalOptions="Start"
+                Text="Back"
+                VerticalOptions="Center" />
+        </Grid>
+        <VerticalStackLayout
+            Grid.Row="1"
+            Padding="20"
+            Spacing="10">
+            <Button Clicked="OnStartTaskClicked" Text="Start Task" />
+            <Button
+                x:Name="cancelButton"
+                Clicked="OnCancelTaskClicked"
+                IsEnabled="False"
+                Text="Cancel Task" />
+            <Label
+                x:Name="statusLabel"
+                FontSize="18"
+                Text="Task status: Not started" />
+        </VerticalStackLayout>
+    </Grid>
+</local:BasePage>

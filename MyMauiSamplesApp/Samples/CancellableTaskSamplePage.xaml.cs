@@ -1,10 +1,10 @@
 namespace MyMauiSamplesApp;
 
-public partial class CancellableTaskDemoPage : BasePage
+public partial class CancellableTaskSamplePage : BasePage
 {
     private readonly CancellableTask _cancellableTask = new();
 
-    public CancellableTaskDemoPage()
+    public CancellableTaskSamplePage()
     {
         InitializeComponent();
         _cancellableTask.TaskCancelled += OnTaskCancelled;

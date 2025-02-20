@@ -2,7 +2,7 @@
 
 namespace MyMauiSamplesApp
 {
-    public class ReusableTimer : IDisposable
+    public partial class ReusableTimer : IDisposable
     {
         private readonly Timer _timer;
         private readonly Func<Task> _callback;
@@ -10,24 +10,6 @@ namespace MyMauiSamplesApp
         private bool _disposed = false;
 
         private bool AutoReset => _timer.AutoReset;
-
-        public bool Enabled
-        {
-            get => _timer.Enabled;
-            set
-            {
-                if (value)
-                {
-                    _timer.Enabled = true;
-                    Start();
-                }
-                else
-                {
-                    _timer.Enabled = false;
-                    Stop();
-                }
-            }
-        }
 
         public ReusableTimer(TimeSpan interval, Func<Task> callback, bool autoReset = true)
         {
@@ -43,18 +25,12 @@ namespace MyMauiSamplesApp
 
         public void Start()
         {
-            if (!Enabled)
-            {
-                _timer.Start();
-            }
+            _timer.Start();
         }
 
         public void Stop()
         {
-            if (Enabled)
-            {
-                _timer.Stop();
-            }
+            _timer.Stop();
         }
 
         public void Reset(TimeSpan newInterval)
@@ -93,7 +69,7 @@ namespace MyMauiSamplesApp
             if (disposing)
             {
                 Stop();
-                _timer.Dispose();
+                _timer.Close();
             }
 
             _disposed = true;

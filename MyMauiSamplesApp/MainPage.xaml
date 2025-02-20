@@ -42,10 +42,15 @@
                 SemanticProperties.Hint="Shows sideDrawer sample"
                 Text="SideDrawer Sample" />
             <Button
-                Clicked="OnCancellableTaskDemoClicked"
+                Clicked="OnCancellableTaskClicked"
                 HorizontalOptions="Fill"
                 SemanticProperties.Hint="Shows cancellableTask sample"
                 Text="CancellableTask Sample" />
+            <Button
+                Clicked="OnReusableTimerClicked"
+                HorizontalOptions="Fill"
+                SemanticProperties.Hint="Shows reusableTimer sample"
+                Text="ReusableTimer Sample" />
         </VerticalStackLayout>
     </ScrollView>
 </local:BasePage>

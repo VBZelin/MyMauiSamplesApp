@@ -9,7 +9,7 @@
     <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
         <Grid
             Grid.Row="0"
-            BackgroundColor="BlueViolet"
+            BackgroundColor="{StaticResource Primary}"
             HeightRequest="64">
             <Button
                 Margin="10"
