@@ -2,12 +2,11 @@
 
 namespace MyMauiSamplesApp
 {
-    public partial class ReusableTimer : IDisposable
+    public partial class ReusableTimer
     {
         private readonly Timer _timer;
         private readonly Func<Task> _callback;
         private bool _callbackRunning = false;
-        private bool _disposed = false;
 
         private bool AutoReset => _timer.AutoReset;
 
@@ -59,24 +58,11 @@ namespace MyMauiSamplesApp
             }
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed) return;
-
-            if (disposing)
-            {
-                Stop();
-                _timer.Elapsed -= EventHandler;
-                _timer.Close();
-            }
-
-            _disposed = true;
-        }
-
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            Stop();
+            _timer.Elapsed -= EventHandler;
+            _timer.Close();
         }
     }
 }

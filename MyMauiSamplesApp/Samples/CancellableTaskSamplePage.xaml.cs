@@ -7,33 +7,41 @@ public partial class CancellableTaskSamplePage : BasePage
     public CancellableTaskSamplePage()
     {
         InitializeComponent();
-        _cancellableTask.TaskCancelled += OnTaskCancelled;
     }
 
     private async void OnStartTaskClicked(object sender, EventArgs e)
     {
-        statusLabel.Text = "Task running...";
+        startButton.IsEnabled = false;
         cancelButton.IsEnabled = true;
+        statusLabel.Text = "Task status: Running...";
 
         try
         {
-            await _cancellableTask.ExecuteAsync(async token =>
+            await _cancellableTask.ExecuteAsync(async (token) =>
             {
-                for (int i = 0; i < 10; i++)
+                double piApproximation = 1.0;
+                int i = 1;
+
+                while (!token.IsCancellationRequested)
                 {
-                    if (_cancellableTask.IsCancelled) return;
-                    await Task.Delay(1000, token);
-                    statusLabel.Text = $"Task progress: {i + 1}/10";
+                    double sign = (i % 2 == 0) ? 1 : -1;
+                    piApproximation += sign / (2 * i + 1);
+                    i++;
+                    double piValue = piApproximation * 4;
+
+                    statusLabel.Text = $"Pi: {piValue:F30}";
+
+                    await Task.Delay(200, token);
                 }
-                statusLabel.Text = "Task completed.";
             });
         }
         catch (OperationCanceledException)
         {
-            statusLabel.Text = "Task cancelled.";
+            statusLabel.Text = "Task status: Cancelled";
         }
         finally
         {
+            startButton.IsEnabled = true;
             cancelButton.IsEnabled = false;
         }
     }
@@ -41,12 +49,6 @@ public partial class CancellableTaskSamplePage : BasePage
     private void OnCancelTaskClicked(object sender, EventArgs e)
     {
         _cancellableTask.Cancel();
-    }
-
-    private void OnTaskCancelled()
-    {
-        statusLabel.Text = "Task cancelled.";
-        cancelButton.IsEnabled = false;
     }
 
     private async void OnBackButtonClicked(object sender, EventArgs e)

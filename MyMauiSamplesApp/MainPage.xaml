@@ -22,6 +22,12 @@
                 Style="{StaticResource SubHeadline}"
                 Text="Welcome to &#10;.NET Multi-platform App UI" />
             <Button
+                BackgroundColor="Green"
+                Clicked="OnGCCollectClicked"
+                HorizontalOptions="Fill"
+                SemanticProperties.Hint="Triggers Garbage Collection"
+                Text="Perform Garbage Collection" />
+            <Button
                 Clicked="OnPreferenceClicked"
                 HorizontalOptions="Fill"
                 SemanticProperties.Hint="Shows preference sample"

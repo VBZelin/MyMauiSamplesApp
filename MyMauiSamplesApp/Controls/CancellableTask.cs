@@ -1,14 +1,12 @@
 ﻿namespace MyMauiSamplesApp
 {
-    public class CancellableTask : IDisposable
+    public class CancellableTask
     {
         private CancellationTokenSource? _cancellationTokenSource;
 
         public event Action? TaskCancelled;
 
         public bool IsCancelled => _cancellationTokenSource is null || _cancellationTokenSource.IsCancellationRequested;
-
-        private bool _disposed;
 
         public CancellableTask() { }
 
@@ -52,25 +50,9 @@
             _cancellationTokenSource = null;
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                DisposeToken();
-            }
-
-            _disposed = true;
-        }
-
         public void Dispose()
         {
-            Dispose(disposing: true);
-            GC.SuppressFinalize(this);
+            DisposeToken();
         }
     }
 }

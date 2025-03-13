@@ -7,6 +7,13 @@ public partial class MainPage : BasePage
         InitializeComponent();
     }
 
+    private void OnGCCollectClicked(object sender, EventArgs e)
+    {
+        GC.Collect();
+        GC.WaitForPendingFinalizers();
+        GC.Collect(); // Call twice for better cleanup
+    }
+
     private async void OnPreferenceClicked(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync(nameof(PreferenceSamplePage));

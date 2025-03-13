@@ -25,7 +25,10 @@
             Grid.Row="1"
             Padding="20"
             Spacing="10">
-            <Button Clicked="OnStartTaskClicked" Text="Start Task" />
+            <Button
+                x:Name="startButton"
+                Clicked="OnStartTaskClicked"
+                Text="Start Task" />
             <Button
                 x:Name="cancelButton"
                 Clicked="OnCancelTaskClicked"
