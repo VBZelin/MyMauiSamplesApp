@@ -1,17 +1,37 @@
+using System.Diagnostics;
+using System.ComponentModel;
+
 namespace MyMauiSamplesApp;
 
-public partial class CancellableTaskSamplePage : BasePage
+public partial class CancellableTaskSamplePage : BasePage, INotifyPropertyChanged
 {
+    private bool _isBusy;
+    public new bool IsBusy
+    {
+        get => _isBusy;
+        protected set
+        {
+            if (_isBusy != value)
+            {
+                _isBusy = value;
+                OnPropertyChanged(nameof(IsBusy));
+            }
+        }
+    }
+
+    private readonly Stopwatch _stopwatch = new();
+
     public CancellableTaskSamplePage()
     {
         InitializeComponent();
+        BindingContext = this;
     }
 
     private async void OnStartTaskClicked(object sender, EventArgs e)
     {
-        startButton.IsEnabled = false;
-        cancelButton.IsEnabled = true;
+        IsBusy = true;
         statusLabel.Text = "Task status: Running...";
+        _stopwatch.Restart();
 
         try
         {
@@ -20,16 +40,20 @@ public partial class CancellableTaskSamplePage : BasePage
                 double piApproximation = 1.0;
                 int i = 1;
 
-                while (!token.IsCancellationRequested)
+                while (!cancellableTask.IsCancelled)
                 {
                     double sign = (i % 2 == 0) ? 1 : -1;
                     piApproximation += sign / (2 * i + 1);
                     i++;
                     double piValue = piApproximation * 4;
 
-                    statusLabel.Text = $"Pi: {piValue:F30}";
+                    if (_stopwatch.ElapsedMilliseconds >= 1000)
+                    {
+                        statusLabel.Text = $"Pi: {piValue:F30}";
+                        _stopwatch.Restart();
+                    }
 
-                    await Task.Delay(200, token);
+                    await Task.Delay(10, token);
                 }
             });
         }
@@ -39,8 +63,7 @@ public partial class CancellableTaskSamplePage : BasePage
         }
         finally
         {
-            startButton.IsEnabled = true;
-            cancelButton.IsEnabled = false;
+            IsBusy = false;
         }
     }
 

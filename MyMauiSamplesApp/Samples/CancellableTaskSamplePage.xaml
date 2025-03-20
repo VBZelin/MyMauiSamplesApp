@@ -4,6 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MyMauiSamplesApp"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:DataType="local:CancellableTaskSamplePage"
     StatusBarColor="{StaticResource Primary}">
     <Grid
         ColumnDefinitions="*"
@@ -21,23 +23,27 @@
                 Text="Back"
                 VerticalOptions="Center" />
         </Grid>
-        <VerticalStackLayout
-            Grid.Row="1"
-            Padding="20"
-            Spacing="10">
-            <Button
-                x:Name="startButton"
-                Clicked="OnStartTaskClicked"
-                Text="Start Task" />
-            <Button
-                x:Name="cancelButton"
-                Clicked="OnCancelTaskClicked"
-                IsEnabled="False"
-                Text="Cancel Task" />
-            <Label
-                x:Name="statusLabel"
-                FontSize="18"
-                Text="Task status: Not started" />
-        </VerticalStackLayout>
+        <Grid Grid.Row="1">
+            <VerticalStackLayout
+                Grid.Row="1"
+                Padding="20"
+                Spacing="10">
+                <Button
+                    x:Name="startButton"
+                    Clicked="OnStartTaskClicked"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource invertedBoolConverter}}"
+                    Text="Start Task" />
+                <Button
+                    x:Name="cancelButton"
+                    Clicked="OnCancelTaskClicked"
+                    IsEnabled="{Binding IsBusy}"
+                    Text="Cancel Task" />
+                <Label
+                    x:Name="statusLabel"
+                    FontSize="18"
+                    Text="Task status: Not started" />
+                <ActivityIndicator IsRunning="{Binding IsBusy}" Color="{StaticResource Primary}" />
+            </VerticalStackLayout>
+        </Grid>
     </Grid>
 </local:BasePage>
