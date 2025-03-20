@@ -38,6 +38,11 @@ public partial class BasePage : ContentPage
         set => SetValue(StatusBarColorProperty, value);
     }
 
+    public bool IsInNavigationStack => Shell.Current.Navigation.NavigationStack.Contains(this)
+        || Shell.Current.Navigation.ModalStack.Contains(this);
+
+    protected readonly CancellableTask cancellableTask = new();
+
     public BasePage()
     {
         InitializeComponent();
@@ -60,6 +65,20 @@ public partial class BasePage : ContentPage
             UpdateAndroidWindowFlags(false);
         }
     }
+
+    protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+    {
+        base.OnNavigatedFrom(args);
+
+        if (!IsInNavigationStack)
+        {
+            ReleaseResources();
+            cancellableTask?.Cancel();
+            cancellableTask?.Dispose();
+        }
+    }
+
+    protected virtual void ReleaseResources() { }
 
     public void UpdateAndroidWindowFlags(bool enabled)
     {

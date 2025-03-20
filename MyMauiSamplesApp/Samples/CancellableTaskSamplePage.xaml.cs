@@ -2,8 +2,6 @@ namespace MyMauiSamplesApp;
 
 public partial class CancellableTaskSamplePage : BasePage
 {
-    private readonly CancellableTask _cancellableTask = new();
-
     public CancellableTaskSamplePage()
     {
         InitializeComponent();
@@ -17,7 +15,7 @@ public partial class CancellableTaskSamplePage : BasePage
 
         try
         {
-            await _cancellableTask.ExecuteAsync(async (token) =>
+            await cancellableTask.ExecuteAsync(async (token) =>
             {
                 double piApproximation = 1.0;
                 int i = 1;
@@ -48,13 +46,11 @@ public partial class CancellableTaskSamplePage : BasePage
 
     private void OnCancelTaskClicked(object sender, EventArgs e)
     {
-        _cancellableTask.Cancel();
+        cancellableTask.Cancel();
     }
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
-        _cancellableTask.Cancel();
-        _cancellableTask.Dispose();
         await Shell.Current.GoToAsync("..");
     }
 }
