@@ -74,7 +74,6 @@ public partial class BasePage : ContentPage
         {
             ReleaseResources();
             cancellableTask?.Cancel();
-            cancellableTask?.Dispose();
         }
     }
 

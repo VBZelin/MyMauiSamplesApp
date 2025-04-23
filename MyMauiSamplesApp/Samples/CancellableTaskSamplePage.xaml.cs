@@ -19,8 +19,6 @@ public partial class CancellableTaskSamplePage : BasePage, INotifyPropertyChange
         }
     }
 
-    private readonly Stopwatch _stopwatch = new();
-
     public CancellableTaskSamplePage()
     {
         InitializeComponent();
@@ -31,30 +29,36 @@ public partial class CancellableTaskSamplePage : BasePage, INotifyPropertyChange
     {
         IsBusy = true;
         statusLabel.Text = "Task status: Running...";
-        _stopwatch.Restart();
 
         try
         {
-            await cancellableTask.ExecuteAsync(async (token) =>
+            await cancellableTask.ExecuteAsync(token =>
             {
-                double piApproximation = 1.0;
-                int i = 1;
-
-                while (!cancellableTask.IsCancelled)
+                return Task.Run(() =>
                 {
-                    double sign = (i % 2 == 0) ? 1 : -1;
-                    piApproximation += sign / (2 * i + 1);
-                    i++;
-                    double piValue = piApproximation * 4;
+                    var stopwatch = Stopwatch.StartNew();
+                    double piApproximation = 1.0;
+                    int i = 1;
 
-                    if (_stopwatch.ElapsedMilliseconds >= 1000)
+                    while (!token.IsCancellationRequested)
                     {
-                        statusLabel.Text = $"Pi: {piValue:F30}";
-                        _stopwatch.Restart();
+                        double sign = (i % 2 == 0) ? 1 : -1;
+                        piApproximation += sign / (2 * i + 1);
+                        i++;
+                        double piValue = piApproximation * 4;
+
+                        if (stopwatch.ElapsedMilliseconds >= 100)
+                        {
+                            statusLabel.Dispatcher.Dispatch(() =>
+                            {
+                                statusLabel.Text = $"Pi: {piValue:F30}";
+                            });
+                            stopwatch.Restart();
+                        }
                     }
 
-                    await Task.Delay(10, token);
-                }
+                    token.ThrowIfCancellationRequested();
+                }, token);
             });
         }
         catch (OperationCanceledException)
