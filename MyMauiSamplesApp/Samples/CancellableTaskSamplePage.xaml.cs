@@ -47,7 +47,7 @@ public partial class CancellableTaskSamplePage : BasePage, INotifyPropertyChange
                         i++;
                         double piValue = piApproximation * 4;
 
-                        if (stopwatch.ElapsedMilliseconds >= 100)
+                        if (stopwatch.ElapsedMilliseconds >= 1000)
                         {
                             statusLabel.Dispatcher.Dispatch(() =>
                             {
