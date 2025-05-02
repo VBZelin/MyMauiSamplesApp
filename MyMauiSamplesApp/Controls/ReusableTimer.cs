@@ -6,6 +6,7 @@ namespace MyMauiSamplesApp
     {
         private readonly Timer _timer;
         private readonly Func<Task> _callback;
+        private readonly SynchronizationContext? _syncContext;
         private bool _callbackRunning = false;
 
         private bool AutoReset => _timer.AutoReset;
@@ -18,7 +19,16 @@ namespace MyMauiSamplesApp
                 AutoReset = autoReset
             };
             _timer.Elapsed += EventHandler;
+            _syncContext = SynchronizationContext.Current;
         }
+
+        public ReusableTimer(TimeSpan interval, Action callback, bool autoReset = true)
+            : this(interval, () =>
+            {
+                callback();
+                return Task.CompletedTask;
+            }, autoReset)
+        { }
 
         public void Start() => _timer.Start();
 
@@ -45,7 +55,27 @@ namespace MyMauiSamplesApp
 
             try
             {
-                await _callback.Invoke();
+                if (_syncContext is not null)
+                {
+                    var tcs = new TaskCompletionSource();
+                    _syncContext.Post(async _ =>
+                    {
+                        try
+                        {
+                            await _callback.Invoke();
+                            tcs.SetResult();
+                        }
+                        catch (Exception ex)
+                        {
+                            tcs.SetException(ex);
+                        }
+                    }, null);
+                    await tcs.Task;
+                }
+                else
+                {
+                    await _callback.Invoke();
+                }
             }
             catch (Exception ex)
             {

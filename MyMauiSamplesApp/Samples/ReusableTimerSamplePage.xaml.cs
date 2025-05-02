@@ -11,12 +11,9 @@ public partial class ReusableTimerSamplePage : BasePage
         _reusableTimer = new ReusableTimer(TimeSpan.FromSeconds(1), UpdateTime);
     }
 
-    private async Task UpdateTime()
+    private void UpdateTime()
     {
-        await Dispatcher.DispatchAsync(() =>
-        {
-            timerLabel.Text = $"Updated at: {DateTime.Now:T}";
-        });
+        timerLabel.Text = $"Updated at: {DateTime.Now:T}";
     }
 
     private void OnToggleTimerButtonClicked(object sender, EventArgs e)
