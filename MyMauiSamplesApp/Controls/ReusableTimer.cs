@@ -2,7 +2,7 @@
 
 namespace MyMauiSamplesApp
 {
-    public partial class ReusableTimer
+    public class ReusableTimer
     {
         private readonly Timer _timer;
         private readonly Func<Task> _callback;
