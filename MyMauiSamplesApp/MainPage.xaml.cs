@@ -43,4 +43,9 @@ public partial class MainPage : BasePage
     {
         await Shell.Current.GoToAsync(nameof(ReusableTimerSamplePage));
     }
+
+    private async void OnTabViewClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(TabViewSamplePage));
+    }
 }

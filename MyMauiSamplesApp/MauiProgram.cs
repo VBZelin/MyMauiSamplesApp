@@ -52,5 +52,6 @@ public static class MauiProgram
         Routing.RegisterRoute(nameof(SideDrawerPage), typeof(SideDrawerPage));
         Routing.RegisterRoute(nameof(CancellableTaskSamplePage), typeof(CancellableTaskSamplePage));
         Routing.RegisterRoute(nameof(ReusableTimerSamplePage), typeof(ReusableTimerSamplePage));
+        Routing.RegisterRoute(nameof(TabViewSamplePage), typeof(TabViewSamplePage));
     }
 }

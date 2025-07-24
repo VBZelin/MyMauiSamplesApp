@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MyMauiSamplesApp.TouchArea"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyMauiSamplesApp"
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    x:Name="this">
+    <Grid>
+        <Grid x:Name="touchAreaBackgroundViewContainer" />
+        <telerik:RadButton
+            x:DataType="local:TouchArea"
+            BackgroundColor="{Binding TouchFeedbackBackgroundColor}"
+            BindingContext="{Reference this}"
+            BorderColor="{Binding TouchFeedbackBorderColor}"
+            Clicked="OnClicked"
+            Command="{Binding ClickCommand}"
+            CommandParameter="{Binding .}"
+            CornerRadius="{Binding TouchFeedbackCornerRadius}"
+            IsEnabled="{Binding IsTouchEnabled}"
+            IsVisible="{Binding IsTouchVisible}"
+            SemanticProperties.Description="{Binding SemanticDescription}"
+            SemanticProperties.Hint="{Binding SemanticHint}"
+            ToolTipProperties.Text="{Binding TooltipText}">
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{Binding TouchFeedbackPressedColor}" />
+                            <Setter Property="Opacity" Value="{Binding TouchFeedbackPressedOpacity}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{Binding TouchFeedbackDisabledColor}" />
+                            <Setter Property="Opacity" Value="{Binding TouchFeedbackDisabledOpacity}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+        </telerik:RadButton>
+        <Grid
+            x:Name="touchAreaOverlayViewContainer"
+            CascadeInputTransparent="False"
+            InputTransparent="True" />
+    </Grid>
+</ContentView>
