@@ -9,18 +9,18 @@
     <telerik:RadTabView x:Name="tabView" AutomationId="tabView">
         <telerik:RadTabView.HeaderItemTemplate>
             <ControlTemplate>
-                <local:TouchArea BackgroundColor="AliceBlue">
-                    <Label
-                        BackgroundColor="Red"
-                        HeightRequest="50"
-                        HorizontalOptions="Center"
-                        Text="{TemplateBinding Text}"
-                        VerticalOptions="Center" />
+                <local:TouchArea BackgroundColor="AliceBlue" TouchFeedbackBorderColor="Black">
+                    <local:TouchArea.TouchAreaBackgroundView>
+                        <Label
+                            BackgroundColor="AliceBlue"
+                            HeightRequest="50"
+                            HorizontalTextAlignment="Center"
+                            Text="{TemplateBinding Text}"
+                            VerticalTextAlignment="Center" />
+                    </local:TouchArea.TouchAreaBackgroundView>
                 </local:TouchArea>
             </ControlTemplate>
         </telerik:RadTabView.HeaderItemTemplate>
-
-
         <telerik:TabViewItem HeaderText="Home">
             <Label Margin="10" Text="This is the content of the Home tab" />
         </telerik:TabViewItem>
