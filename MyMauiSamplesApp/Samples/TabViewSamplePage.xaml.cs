@@ -37,4 +37,9 @@ public partial class TabViewSamplePage : BasePage, INotifyPropertyChanged
             tabView.SelectedIndex = index;
         }
     }
+
+    private async void OnBackButtonClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
+    }
 }

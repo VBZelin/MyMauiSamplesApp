@@ -39,10 +39,28 @@
             </DataTemplate>
         </ResourceDictionary>
     </local:BasePage.Resources>
-    <telerik:RadTabView
-        x:Name="tabView"
-        AutomationId="tabView"
-        HeaderItemTemplate="{StaticResource tabViewItemHeaderTemplate}"
-        ItemTemplate="{x:StaticResource TabViewItemTemplate}"
-        ItemsSource="{Binding Items}" />
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*"
+        RowSpacing="10">
+        <Grid
+            Grid.Row="0"
+            BackgroundColor="{StaticResource Primary}"
+            HeightRequest="64">
+            <Button
+                Margin="10"
+                BackgroundColor="Transparent"
+                Clicked="OnBackButtonClicked"
+                HorizontalOptions="Start"
+                Text="Back"
+                VerticalOptions="Center" />
+        </Grid>
+        <telerik:RadTabView
+            x:Name="tabView"
+            Grid.Row="1"
+            AutomationId="tabView"
+            HeaderItemTemplate="{StaticResource tabViewItemHeaderTemplate}"
+            ItemTemplate="{x:StaticResource TabViewItemTemplate}"
+            ItemsSource="{Binding Items}" />
+    </Grid>
 </local:BasePage>
