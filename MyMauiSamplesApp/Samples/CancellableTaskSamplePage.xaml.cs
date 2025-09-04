@@ -35,6 +35,18 @@ public partial class CancellableTaskSamplePage : BasePage, INotifyPropertyChange
         {
             // ✅ Run the Pi approximation on a dedicated background thread via ExecuteAsync.
             await cancellableTask.ExecuteAsync(RunPiOnDedicatedThreadAsync);
+
+            // ✅ Yield with a real pause AND resume on a background thread.
+            // await Task.Delay(1).ConfigureAwait(false);
+
+            // ❌ Blocking UI thread (freeze)
+            // await cancellableTask.ExecuteAsync(RunPiApproximationOnUiThread);
+
+            // ✅ UI thread, but cooperative (yields each iteration to stay responsive)
+            // await cancellableTask.ExecuteAsync(RunPiApproximationOnUiThreadWithYield);
+
+            // ✅ Best: background thread (no UI blocking)
+            // await cancellableTask.ExecuteAsync(RunPiApproximationInBackground);
         }
         finally
         {
