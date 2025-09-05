@@ -4,7 +4,18 @@ namespace MyMauiSamplesApp;
 
 public partial class PopupBool : Popup<bool>
 {
-    void OnYesClicked(object sender, EventArgs e) => CloseAsync(true);
+    public PopupBool()
+    {
+        InitializeComponent();
+    }
 
-    void OnNoClicked(object sender, EventArgs e) => CloseAsync(false);
+    async void OnYesButtonClicked(object? sender, EventArgs e)
+    {
+        await CloseAsync(true);
+    }
+
+    async void OnNoButtonClicked(object? sender, EventArgs e)
+    {
+        await CloseAsync(false);
+    }
 }

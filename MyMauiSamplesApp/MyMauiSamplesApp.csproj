@@ -77,9 +77,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Controls\PopupBool.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="Controls\TouchArea.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
