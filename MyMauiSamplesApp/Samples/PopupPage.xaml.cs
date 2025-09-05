@@ -13,16 +13,25 @@ public partial class PopupPage : BasePage
 
     private async void OnOpenPopupClicked(object sender, EventArgs e)
     {
-        var popup = new PopupBool();
+        var popup = new PopupObject();
 
-        IPopupResult<bool> result = await this.ShowPopupAsync<bool>(popup, PopupOptions.Empty, CancellationToken.None);
+        IPopupResult<object> result = await this.ShowPopupAsync<object>(popup, PopupOptions.Empty, CancellationToken.None);
 
         if (result.WasDismissedByTappingOutsideOfPopup)
         {
             return;
         }
 
-        resultLabel.Text = $"Popup returned: {result.Result}";
+        bool value = false;
+        if (result.Result is bool b)
+        {
+            value = b;
+        }
+        else if (result.Result is string s && bool.TryParse(s, out var parsed))
+        {
+            value = parsed;
+        }
+        resultLabel.Text = $"Popup returned: {value}";
     }
 
     private async void OnBackButtonClicked(object sender, EventArgs e)
