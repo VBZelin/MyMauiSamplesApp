@@ -4,7 +4,7 @@ using CommunityToolkit.Maui.Extensions;
 
 namespace MyMauiSamplesApp;
 
-public partial class PopupPage : ContentPage
+public partial class PopupPage : BasePage
 {
     public PopupPage()
     {
