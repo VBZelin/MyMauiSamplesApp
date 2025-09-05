@@ -62,11 +62,6 @@
                 HorizontalOptions="Fill"
                 SemanticProperties.Hint="Shows tabView sample"
                 Text="TabView Sample" />
-            <Button
-                Clicked="OnPopupClicked"
-                HorizontalOptions="Fill"
-                SemanticProperties.Hint="Shows popup sample"
-                Text="Popup Sample" />
         </VerticalStackLayout>
     </ScrollView>
 </local:BasePage>
