@@ -48,4 +48,9 @@ public partial class MainPage : BasePage
     {
         await Shell.Current.GoToAsync(nameof(TabViewSamplePage));
     }
+
+    private async void OnPopupClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(PopupPage));
+    }
 }
