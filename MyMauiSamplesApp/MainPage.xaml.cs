@@ -53,4 +53,9 @@ public partial class MainPage : BasePage
     {
         await Shell.Current.GoToAsync(nameof(PopupPage));
     }
+
+    private async void OnConfigAwaitClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(ConfigAwaitSamplePage));
+    }
 }

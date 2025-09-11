@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<local:BasePage
+    x:Class="MyMauiSamplesApp.ConfigAwaitSamplePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MyMauiSamplesApp"
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    Title="ConfigAwaitSamplePage"
+    x:DataType="local:ConfigAwaitSamplePage">
+
+    <local:BasePage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="TabViewHeaderStyle" TargetType="telerik:TabViewHeader">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="BorderColor" Value="Transparent" />
+            </Style>
+            <Style x:Key="TabViewHeaderItemStyle" TargetType="telerik:TabViewHeaderItem">
+                <!--  Base  -->
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Padding" Value="4" />
+                <Setter Property="TextColor" Value="#6B7280" />
+                <Setter Property="FontAttributes" Value="None" />
+                <Setter Property="FontFamily" Value="Fira Code" />
+                <!--  gray-500  -->
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="BorderColor" Value="#D1D5DB" />
+                <Setter Property="BorderThickness" Value="2" />
+
+                <!--  States  -->
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal" />
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="TextColor" Value="#9CA3AF" />
+                                    <!--  gray-400  -->
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="TextColor" Value="#2563EB" />
+                                    <Setter Property="FontAttributes" Value="Bold" />
+                                    <!--  blue-600  -->
+                                    <Setter Property="BorderColor" Value="#2563EB" />
+                                    <Setter Property="BackgroundColor" Value="#EEF2FF" />
+                                    <!--  very light indigo  -->
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </local:BasePage.Resources>
+
+    <Grid
+        Padding="0"
+        ColumnDefinitions="*"
+        RowDefinitions="Auto,*,Auto,*">
+
+        <!--  Header  -->
+        <Grid
+            Grid.Row="0"
+            Padding="10,0"
+            BackgroundColor="#0F172A"
+            HeightRequest="64">
+            <Grid ColumnDefinitions="Auto,*">
+                <Button
+                    Grid.Column="0"
+                    BackgroundColor="Transparent"
+                    Clicked="OnBackButtonClicked"
+                    FontFamily="Fira Code"
+                    FontSize="16"
+                    Text="← Back"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    FontFamily="Fira Code"
+                    FontSize="18"
+                    Text="ConfigureAwait Samples"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+            </Grid>
+        </Grid>
+
+        <!--  Code samples in tabs  -->
+        <Grid Grid.Row="1">
+            <telerik:RadTabView
+                x:Name="tabView"
+                HeaderItemStyle="{StaticResource TabViewHeaderItemStyle}"
+                HeaderStyle="{StaticResource TabViewHeaderStyle}"
+                IsContentSwipeEnabled="True"
+                ItemsSource="{Binding CodeSamples}">
+                <telerik:RadTabView.ItemTemplate>
+                    <DataTemplate x:DataType="local:CodeSample">
+                        <telerik:TabViewItem HeaderText="{Binding Title}">
+                            <telerik:TabViewItem.ContentTemplate>
+                                <DataTemplate>
+                                    <ScrollView BackgroundColor="Black" Orientation="Vertical">
+                                        <Label
+                                            FontFamily="Fira Code"
+                                            FontSize="16"
+                                            HorizontalOptions="Center"
+                                            HorizontalTextAlignment="Start"
+                                            LineBreakMode="WordWrap"
+                                            LineHeight="1.2"
+                                            Text="{Binding Code}"
+                                            TextColor="White"
+                                            VerticalOptions="Center"
+                                            VerticalTextAlignment="Start" />
+                                    </ScrollView>
+                                </DataTemplate>
+                            </telerik:TabViewItem.ContentTemplate>
+                        </telerik:TabViewItem>
+                    </DataTemplate>
+                </telerik:RadTabView.ItemTemplate>
+            </telerik:RadTabView>
+        </Grid>
+
+        <!--  Run Button  -->
+        <Grid Grid.Row="2" Padding="20,10">
+            <Button
+                Padding="16,10"
+                BackgroundColor="#2563EB"
+                Clicked="OnRunDemoClicked"
+                CornerRadius="12"
+                FontFamily="Fira Code"
+                FontSize="16"
+                HorizontalOptions="Center"
+                Text="▶ Run Demo"
+                TextColor="White"
+                VerticalOptions="Center">
+                <Button.Shadow>
+                    <Shadow Brush="#55000000" Radius="8" />
+                </Button.Shadow>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#1D4ED8" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#93C5FD" />
+                                <Setter Property="TextColor" Value="#E5E7EB" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+        </Grid>
+
+        <!--  Messages  -->
+        <Grid Grid.Row="3">
+            <CollectionView
+                Margin="4"
+                ItemsSource="{Binding Messages}"
+                SelectionMode="None">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="8" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="local:Message">
+                        <Border
+                            Margin="12,0,12,4"
+                            Padding="10"
+                            BackgroundColor="White"
+                            Stroke="#D1D5DB"
+                            StrokeShape="RoundRectangle 12"
+                            StrokeThickness="1">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <!--  Message text  -->
+                                <Label
+                                    Grid.Column="0"
+                                    FontFamily="Fira Code"
+                                    FontSize="16"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Text}"
+                                    TextColor="{Binding TextColor}" />
+
+                                <!--  Timestamp  -->
+                                <Label
+                                    Grid.Column="1"
+                                    FontFamily="Fira Code"
+                                    FontSize="12"
+                                    HorizontalTextAlignment="End"
+                                    Text="{Binding Timestamp, StringFormat='{0:HH\\:mm\\:ss}'}"
+                                    TextColor="#6B7280"
+                                    VerticalTextAlignment="Start" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </Grid>
+</local:BasePage>
