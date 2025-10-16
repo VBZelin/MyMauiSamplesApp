@@ -1,5 +1,7 @@
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
+using Serilog;
 using Telerik.Maui.Controls.Compatibility;
 
 namespace MyMauiSamplesApp;
@@ -20,24 +22,58 @@ public static class MauiProgram
             });
 
 #if DEBUG
-        builder.Logging.AddDebug();
+        // -----------------------------------------------------------------------------
+        // Configure .NET MAUI built-in logging providers
+        // -----------------------------------------------------------------------------
+
+        var logPath = Path.Combine(FileSystem.AppDataDirectory, "app.log");
+
+        builder.Logging
+            .AddDebug()
+            .AddConsole()
+            .AddFile(logPath)
+            //.AddFilter(typeof(ConfigAwaitSamplePage).FullName, LogLevel.Information)
+            .SetMinimumLevel(LogLevel.Trace);
+
+        // -----------------------------------------------------------------------------
+        // Configure Serilog for logging to multiple targets
+        // -----------------------------------------------------------------------------
+
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Verbose()
+            .WriteTo.Debug()
+            .WriteTo.Console()
+            .WriteTo.File(
+                path: logPath,
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 7,
+                shared: true)
+            //.Filter.ByIncludingOnly(e =>
+            //e.Properties.ContainsKey("SourceContext") &&
+            //e.Properties["SourceContext"].ToString().Contains(typeof(ConfigAwaitSamplePage).FullName!) &&
+            //e.Level >= LogEventLevel.Information)
+            .CreateLogger();
+
+        builder.Logging.ClearProviders();
+        builder.Logging.AddSerilog();
 #endif
 
-        // Uncomment the following code to manage the full Android lifecycle and achieve a transparent status bar
-        // #if ANDROID
-        //		builder.ConfigureLifecycleEvents(events =>
-        //		{
-        //			events.AddAndroid(android => android.OnCreate((activity, bundle) =>
-        //			{
-        //				var window = activity.Window;
-        //				if (window is not null)
-        //				{
-        //					window.SetFlags(Android.Views.WindowManagerFlags.LayoutNoLimits, Android.Views.WindowManagerFlags.LayoutNoLimits);
-        //					window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
-        //				}
-        //			}));
-        //		});
-        // #endif
+#if ANDROID
+        builder.ConfigureLifecycleEvents(events =>
+        {
+            events.AddAndroid(android => android.OnCreate((activity, bundle) =>
+            {
+                var window = activity.Window;
+                if (window is not null)
+                {
+                    window.SetFlags(
+                        Android.Views.WindowManagerFlags.LayoutNoLimits,
+                        Android.Views.WindowManagerFlags.LayoutNoLimits);
+                    window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
+                }
+            }));
+        });
+#endif
 
         RegisterRoutes();
 

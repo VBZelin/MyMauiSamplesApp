@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using Microsoft.Extensions.Logging;
+using System.Collections.ObjectModel;
 using Telerik.Maui.Controls;
 
 namespace MyMauiSamplesApp;
@@ -91,12 +92,24 @@ public partial class ConfigAwaitSamplePage : BasePage
     {
         Dispatcher.Dispatch(() =>
         {
-            Messages.Add(new Message
+            var timestamp = DateTime.Now;
+            var message = new Message
             {
                 Text = text,
-                Timestamp = DateTime.Now,
+                Timestamp = timestamp,
                 TextColor = color ?? Colors.Black // default if none provided
-            });
+            };
+
+            Messages.Add(message);
+
+            // Structured logging with timestamp
+            SampleLogger.Logger?.LogTrace(
+                "[{Timestamp:yyyy-MM-dd HH:mm:ss}] {Message}",
+                timestamp, text);
+
+            SampleLogger.Logger?.LogInformation(
+                "[{Timestamp:yyyy-MM-dd HH:mm:ss}] {Message}",
+                timestamp, text);
         });
     }
 
